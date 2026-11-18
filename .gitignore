@@ -15,3 +15,5 @@ results/profiles/
 *.pt.trace.json
 
 .DS_Store
+# reference checkouts (read-only)
+third_party/
