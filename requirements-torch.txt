@@ -1,6 +1,9 @@
-# Env 2: community PyTorch port (where we do the optimization work)
+# Env 2: community PyTorch port (B1 and the optimization work)
+#   uv venv --python 3.12 .venv-torch && uv pip install --python .venv-torch/bin/python -r requirements-torch.txt
 # Unmerged Transformers PR (huggingface/transformers#47874) -> install from the branch
 git+https://github.com/kashif/transformers.git@add-weathernext2
 torch
 scipy
 xarray
+h5py
+h5netcdf  # xarray netCDF backend

@@ -1,0 +1,12 @@
+stage,ms_per_step,share
+attention: mask + softmax,198.13,0.4707
+attention: scores QK^T,62.09,0.1475
+attention: weights x V,51.37,0.122
+feed-forward,33.9,0.0805
+transformer: other,16.71,0.0397
+attention: Q/K/V/out projections,14.45,0.0343
+encoder (grid -> mesh),12.96,0.0308
+other,12.76,0.0303
+decoder (mesh -> grid),12.55,0.0298
+norm + noise conditioning,4.13,0.0098
+memcpy,1.9,0.0045

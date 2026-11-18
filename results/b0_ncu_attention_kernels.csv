@@ -1,0 +1,5 @@
+kernel,role,duration_ms,dram_throughput_pct_of_peak,dram_GBps,sm_throughput_pct,l2_hit_pct,dram_bytes_GB
+input_reduce_fusion_46,softmax row max (1 score block),0.964,96.2,576.5,24.9,6.1,0.556
+input_reduce_fusion_64,softmax row sum (3 score blocks),3.353,96.8,580.1,25.8,2.0,1.945
+loop_divide_fusion_15,softmax normalize (3 in / 3 out),6.075,92.0,551.3,15.7,45.3,3.349
+gemm_fusion_dot_278,QK^T scores (1 block),1.916,49.7,297.8,47.2,96.8,0.570

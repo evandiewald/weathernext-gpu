@@ -1,0 +1,10 @@
+=== sdpa compile
+step time: median 455.7 ms (min 449.8, max 459.0) over 20 runs
+29 variables compared; worst relative RMS error 1.70e-05
+step time: median 362.8 ms (min 359.7, max 368.5) over 20 runs
+peak GPU memory (allocated): 2.01 GB
+=== flex_attention compile
+step time: median 9030.7 ms (min 8999.4, max 9045.0) over 20 runs
+29 variables compared; worst relative RMS error 1.67e-05
+step time: median 413.3 ms (min 411.9, max 415.8) over 20 runs
+peak GPU memory (allocated): 1.50 GB

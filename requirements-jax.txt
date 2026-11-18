@@ -1,4 +1,7 @@
-# Env 1: official reference (ground truth + baseline 0)
-# Install on a CUDA machine:  pip install -U "jax[cuda12]"  then  pip install -r requirements-jax.txt
+# Env 1: official reference (ground truth + baseline B0)
+#   python3 -m venv .venv-jax && source .venv-jax/bin/activate
+#   pip install -U pip && pip install -r requirements-jax.txt
+jax[cuda12]
 git+https://github.com/google-deepmind/weathernext.git@v0.3.0
 xarray
+h5py  # netCDF reader used by xarray for the sample data

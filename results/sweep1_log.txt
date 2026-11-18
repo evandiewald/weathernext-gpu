@@ -1,0 +1,20 @@
+=== eager none
+step time: median 739.5 ms (min 726.9, max 740.6) over 20 runs
+29 variables compared; worst relative RMS error 1.69e-05
+step time: median 604.6 ms (min 602.9, max 606.7) over 20 runs
+peak GPU memory (allocated): 3.60 GB
+=== sdpa none
+step time: median 532.3 ms (min 530.2, max 533.9) over 20 runs
+29 variables compared; worst relative RMS error 1.73e-05
+step time: median 443.8 ms (min 438.4, max 444.9) over 20 runs
+peak GPU memory (allocated): 2.19 GB
+=== flex_attention none
+step time: median 9073.3 ms (min 9041.7, max 9082.8) over 20 runs
+29 variables compared; worst relative RMS error 1.86e-05
+step time: median 457.9 ms (min 456.0, max 459.3) over 20 runs
+peak GPU memory (allocated): 2.19 GB
+=== eager compile
+step time: median 525.9 ms (min 519.8, max 529.1) over 20 runs
+29 variables compared; worst relative RMS error 1.63e-05
+step time: median 351.8 ms (min 346.6, max 355.1) over 20 runs
+peak GPU memory (allocated): 3.19 GB

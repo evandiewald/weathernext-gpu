@@ -1,0 +1,33 @@
+{
+  "baseline": "B0",
+  "model": "WeatherNextCyclones_Mini",
+  "device": "NVIDIA A10",
+  "attention_type": "triblockdiag_mha",
+  "ensemble_members": 1,
+  "compile_s": 19.818989555999906,
+  "step_ms_median": 419.87096199977714,
+  "step_ms_all": [
+    417.22,
+    422.1,
+    418.61,
+    420.98,
+    418.05,
+    419.87,
+    420.02,
+    419.1,
+    420.23,
+    418.87,
+    420.4,
+    419.76,
+    419.75,
+    419.88,
+    419.7,
+    420.67,
+    420.03,
+    419.79,
+    420.03,
+    419.87
+  ],
+  "peak_gb": 2.317672448,
+  "jax_version": "0.12.1"
+}
