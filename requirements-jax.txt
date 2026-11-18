@@ -1,0 +1,4 @@
+# Env 1: official reference (ground truth + baseline 0)
+# Install on a CUDA machine:  pip install -U "jax[cuda12]"  then  pip install -r requirements-jax.txt
+git+https://github.com/google-deepmind/weathernext.git@v0.3.0
+xarray

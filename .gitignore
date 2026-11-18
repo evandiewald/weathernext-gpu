@@ -1,0 +1,17 @@
+# environments
+.venv*/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# large stuff that never goes in git
+data/
+weights/
+results/profiles/
+*.nc
+*.zarr/
+*.nsys-rep
+*.ncu-rep
+*.pt.trace.json
+
+.DS_Store

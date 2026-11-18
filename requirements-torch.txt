@@ -1,0 +1,6 @@
+# Env 2: community PyTorch port (where we do the optimization work)
+# Unmerged Transformers PR (huggingface/transformers#47874) -> install from the branch
+git+https://github.com/kashif/transformers.git@add-weathernext2
+torch
+scipy
+xarray
