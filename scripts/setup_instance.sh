@@ -11,6 +11,10 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p data logs results/profiles
 
+# Official repo, read-only: the mesh/ordering scripts (10, 11, 12, mesh_flex_attention) import its mesh code
+[ -d third_party/weathernext ] || git clone -q --depth 1 --branch v0.3.0 \
+  https://github.com/google-deepmind/weathernext.git third_party/weathernext
+
 # uv: fast installer that also provides Python 3.12 (system Python is 3.10; JAX needs >= 3.11)
 python3 -m pip install --user -q uv
 UV=~/.local/bin/uv

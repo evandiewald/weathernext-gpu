@@ -1,0 +1,36 @@
+{
+  "n": 10242,
+  "khop": 16,
+  "tile": 128,
+  "useful": 8182482,
+  "orders": {
+    "rcm": {
+      "computed": 2741,
+      "full": 13,
+      "partial": 2728,
+      "waste": 5.488376754143792,
+      "lookups_per_useful": 5.462346510508669
+    },
+    "latlon": {
+      "computed": 3097,
+      "full": 13,
+      "partial": 3084,
+      "waste": 6.201204964459439,
+      "lookups_per_useful": 6.175174720824317
+    },
+    "morton": {
+      "computed": 2251,
+      "full": 2,
+      "partial": 2249,
+      "waste": 4.507236801743041,
+      "lookups_per_useful": 4.503232148876099
+    },
+    "hilbert": {
+      "computed": 1955,
+      "full": 5,
+      "partial": 1950,
+      "waste": 3.9145481774356483,
+      "lookups_per_useful": 3.904536545268294
+    }
+  }
+}

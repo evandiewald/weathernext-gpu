@@ -1,0 +1,42 @@
+=== eager none attn=fp32
+step time: median 719.9 ms (min 718.7, max 720.4) over 20 runs
+29 variables compared; worst relative RMS error 1.66e-05
+step time: median 599.4 ms (min 596.9, max 600.6) over 20 runs
+peak GPU memory (allocated): 3.60 GB
+=== eager compile attn=fp32
+step time: median 508.2 ms (min 503.3, max 511.8) over 20 runs
+29 variables compared; worst relative RMS error 1.66e-05
+step time: median 345.9 ms (min 341.8, max 351.1) over 20 runs
+peak GPU memory (allocated): 3.19 GB
+=== sdpa none attn=bf16
+step time: median 338.3 ms (min 333.9, max 340.9) over 20 runs
+29 variables compared; worst relative RMS error 2.49e-02
+step time: median 252.2 ms (min 250.8, max 256.7) over 20 runs
+peak GPU memory (allocated): 2.19 GB
+=== sdpa compile attn=bf16
+step time: median 270.0 ms (min 266.1, max 274.4) over 20 runs
+29 variables compared; worst relative RMS error 2.39e-02
+step time: median 182.5 ms (min 180.9, max 185.4) over 20 runs
+peak GPU memory (allocated): 1.73 GB
+=== flex_attention none attn=bf16
+step time: median 400.4 ms (min 398.6, max 408.5) over 20 runs
+29 variables compared; worst relative RMS error 2.37e-02
+step time: median 328.2 ms (min 327.2, max 328.8) over 20 runs
+peak GPU memory (allocated): 2.19 GB
+=== flex_attention compile attn=bf16
+step time: median 353.2 ms (min 349.7, max 362.1) over 20 runs
+29 variables compared; worst relative RMS error 2.48e-02
+step time: median 275.3 ms (min 274.4, max 276.5) over 20 runs
+peak GPU memory (allocated): 1.50 GB
+=== eager compile attn=bf16
+E1119 00:19:13.675000 5706 torch/_subclasses/fake_tensor.py:3255] [0/0]     _check_with(RuntimeError, cond, message)
+E1119 00:19:13.675000 5706 torch/_subclasses/fake_tensor.py:3255] [0/0]     raise error_type(message_evaluated)
+E1119 00:19:13.675000 5706 torch/_subclasses/fake_tensor.py:3255] [0/0] RuntimeError: expected scalar type torch.float32 but found torch.bfloat16
+E1119 00:19:14.338000 5706 torch/_subclasses/fake_tensor.py:3255] [1/0]     _check_with(RuntimeError, cond, message)
+E1119 00:19:14.338000 5706 torch/_subclasses/fake_tensor.py:3255] [1/0]     raise error_type(message_evaluated)
+FileNotFoundError: [Errno 2] No such file or directory: 'data/b1_torch_mini_NVIDIA_A10_eager_compile_attnbf16_fp32_parity_prediction.npz'
+E1119 00:19:23.929000 5842 torch/_subclasses/fake_tensor.py:3255] [0/0]     _check_with(RuntimeError, cond, message)
+E1119 00:19:23.929000 5842 torch/_subclasses/fake_tensor.py:3255] [0/0]     raise error_type(message_evaluated)
+E1119 00:19:23.929000 5842 torch/_subclasses/fake_tensor.py:3255] [0/0] RuntimeError: expected scalar type torch.float32 but found torch.bfloat16
+E1119 00:19:24.615000 5842 torch/_subclasses/fake_tensor.py:3255] [1/0]     _check_with(RuntimeError, cond, message)
+E1119 00:19:24.615000 5842 torch/_subclasses/fake_tensor.py:3255] [1/0]     raise error_type(message_evaluated)

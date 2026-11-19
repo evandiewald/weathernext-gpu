@@ -1,0 +1,18 @@
+=== hilbert parity (fp32)
+step time: median 7427.9 ms (min 7427.9, max 7427.9) over 1 runs
+29 variables compared; worst relative RMS error 1.88e-05
+=== hilbert timing (tf32)
+step time: median 245.4 ms (min 244.1, max 247.7) over 20 runs
+peak GPU memory (allocated): 2.30 GB
+=== hilbert timing (tf32 + compile)
+    raise AssertionError(
+AssertionError: Guard failed on the same frame it was created. This is a bug - please create an issue.Guard fail reason: 13/0: tensor '___from_numpy(phi)' dispatch key set mismatch. expected DispatchKeySet(CPU, BackendSelect, ADInplaceOrView), actual DispatchKeySet(CPU, BackendSelect)
+=== native parity (fp32)
+step time: median 10138.3 ms (min 10138.3, max 10138.3) over 1 runs
+29 variables compared; worst relative RMS error 1.89e-05
+=== native timing (tf32)
+step time: median 285.9 ms (min 284.0, max 290.7) over 20 runs
+peak GPU memory (allocated): 2.30 GB
+=== native timing (tf32 + compile)
+step time: median 249.6 ms (min 247.0, max 253.0) over 20 runs
+peak GPU memory (allocated): 1.61 GB
