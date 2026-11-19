@@ -1,0 +1,16 @@
+{
+  "device": "NVIDIA A10",
+  "members": 32,
+  "batch": 8,
+  "steps": 60,
+  "variant": "meshflex-hilbert-tuned + torch.compile, TF32",
+  "compile_s": 8.652432093999778,
+  "total_s_excluding_compile": 260.09857603399996,
+  "step_ms_median_per_batch": 1088.07482300017,
+  "seconds_per_15day_member": 8.160561172501275,
+  "members_per_gpu_hour": 441.14613246585986,
+  "price_per_hour": 1.29,
+  "usd_per_member_forecast": 0.002924201086812957,
+  "usd_per_1000_member_forecasts": 2.924201086812957,
+  "peak_gb": 12.79444736
+}

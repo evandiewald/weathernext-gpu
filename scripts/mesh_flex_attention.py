@@ -87,7 +87,11 @@ def install(model, order: str = "hilbert", attn_dtype: torch.dtype = torch.float
             perm = node_order(order, mask)
             inv = torch.empty_like(perm)
             inv[perm] = torch.arange(n, device=perm.device)
-            dense = mask[perm][:, perm].contiguous()          # mask in the new order
+            # Mask in the new order. Two steps so the unordered copy is freed first:
+            # at 0.25 deg each N x N bool copy is 1.7 GB.
+            dense = mask[perm]
+            del mask
+            dense = dense[:, perm].contiguous()
             cache["dense"] = dense
 
             def mod(bi, hi, q_idx, kv_idx):
@@ -96,9 +100,16 @@ def install(model, order: str = "hilbert", attn_dtype: torch.dtype = torch.float
                                             device=dense.device, BLOCK_SIZE=block)
             cache["perm"], cache["inv"] = perm, inv
         x = hidden_states[:, cache["perm"]]
-        for layer in self.layers:
+        for i, layer in enumerate(self.layers):
+            # Optional NVTX range "attn_probe" around one layer's attention, for
+            # Nsight filtering (set by 05_b1_torch.py --nvtx-probe; eager mode only).
+            probe = getattr(self, "probe_layer", None) == i and getattr(self, "probe_armed", False)
+            if probe:
+                torch.cuda.nvtx.range_push("attn_probe")
             x = x + _attend(layer.self_attn, layer.input_layernorm(x, conditioning), cache["bm"],
                             attn_dtype, kernel_options)
+            if probe:
+                torch.cuda.nvtx.range_pop()
             x = x + layer.mlp(layer.post_attention_layernorm(x, conditioning))
         return self.norm(x[:, cache["inv"]], conditioning)
 

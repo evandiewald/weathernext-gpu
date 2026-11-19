@@ -11,6 +11,10 @@ Run on the GPU box, inside .venv-jax:
     # parity reference: fixed noise vector + full-fp32 matmuls (no TF32)
     python scripts/03_b0_jax_baseline.py --noise data/parity_noise.npy \
         --matmul-precision highest --tag parity
+    # full 0.25-degree model (WeatherNextCyclones_<2024_model1). Expected to fail on a
+    # 24 GB A10: triblockdiag needs ~30 GB of attention scores per layer. The failure and
+    # XLA's requested allocation size are saved to results/ (status "oom").
+    python scripts/03_b0_jax_baseline.py --model full
 
 The trace lands in results/profiles/b0/plugins/profile/<timestamp>/:
   *.trace.json.gz -> drag into https://ui.perfetto.dev  (timeline)
@@ -40,11 +44,14 @@ import xarray_jax
 from weathernext.utils import checkpoint, data_utils, fiddle_config_io
 from weathernext.weathernext2 import fgn
 
-MODEL = "WeatherNextCyclones_Mini"   # the 1-degree model from the demo notebook
-SPLIT = "2024"
+MODELS = {   # --model -> (config name, weights file, grid resolution)
+    "mini": ("WeatherNextCyclones_Mini", "WeatherNextCyclones_Mini_<2024.npz", "1.0"),  # demo notebook's
+    "full": ("WeatherNextCyclones", "WeatherNextCyclones_<2024_model1.npz", "0.25"),
+}
+MODEL, _weights, _res = MODELS["mini"]   # overridden by --model in __main__
 DATA = ("weathernext2/dataset/source-hres_forecast_init-2024-10-07 00:00:00"
-        "_res-1.0_levels-13_steps-01.nc")       # 2 input frames + 1 target
-WEIGHTS = f"weathernext2/params/{MODEL}_<{SPLIT}.npz"
+        f"_res-{_res}_levels-13_steps-01.nc")       # 2 input frames + 1 target
+WEIGHTS = f"weathernext2/params/{_weights}"
 BUCKET = "https://storage.googleapis.com/dm_graphcast/"
 CACHE = pathlib.Path("data")
 N_TIMED = 20
@@ -130,7 +137,25 @@ def main(profile_dir: str | None, noise_path: str | None, precision: str, tag: s
     #    the GPU works in the background. block_until_ready() waits for the
     #    result - without it we'd be timing how fast Python can queue work.
     t0 = time.perf_counter()
-    out = jax.block_until_ready(step(rng, inputs, template, forcings))
+    try:
+        out = jax.block_until_ready(step(rng, inputs, template, forcings))
+    except Exception as ex:   # XLA reports OOM as XlaRuntimeError: RESOURCE_EXHAUSTED
+        text = str(ex)
+        if "RESOURCE_EXHAUSTED" not in text and "out of memory" not in text.lower():
+            raise
+        stats = gpu.memory_stats() or {}
+        tag_ = f"b0_jax_{MODEL}_{gpu.device_kind.replace(' ', '_')}" + (f"_{tag}" if tag else "")
+        pathlib.Path("results").mkdir(exist_ok=True)
+        (pathlib.Path("results") / f"{tag_}.json").write_text(json.dumps({
+            "baseline": "B0", "model": MODEL, "device": gpu.device_kind, "status": "oom",
+            "attention_type": tkw["attention_type"], "jax_version": jax.__version__,
+            "matmul_precision": precision, "gpu_limit_gb": stats.get("bytes_limit", 0) / 1e9,
+            "peak_gb_before_oom": stats.get("peak_bytes_in_use", 0) / 1e9,
+            "error": text[:3000],
+        }, indent=2))
+        print("OUT OF MEMORY:", text.splitlines()[0][:500])
+        print(f"saved results/{tag_}.json")
+        raise SystemExit(1)
     compile_s = time.perf_counter() - t0
     print(f"first call (trace + compile + run): {compile_s:.1f} s")
 
@@ -175,9 +200,16 @@ def main(profile_dir: str | None, noise_path: str | None, precision: str, tag: s
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
+    ap.add_argument("--model", default="mini", choices=list(MODELS))
+    ap.add_argument("--n-timed", type=int, default=N_TIMED, help="timed steps (1 for slow CPU reference runs)")
     ap.add_argument("--profile", metavar="DIR", help="also capture a 3-step trace")
     ap.add_argument("--noise", metavar="NPY", help="fixed (1, 32) noise vector")
     ap.add_argument("--matmul-precision", default="default", choices=["default", "highest"])
     ap.add_argument("--tag", default="", help="suffix for output file names")
     a = ap.parse_args()
+    MODEL, _weights, _res = MODELS[a.model]
+    DATA = ("weathernext2/dataset/source-hres_forecast_init-2024-10-07 00:00:00"
+            f"_res-{_res}_levels-13_steps-01.nc")
+    WEIGHTS = f"weathernext2/params/{_weights}"
+    N_TIMED = a.n_timed
     main(a.profile, a.noise, a.matmul_precision, a.tag)

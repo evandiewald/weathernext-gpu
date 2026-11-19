@@ -1,0 +1,17 @@
+{
+  "device": "TPU v5 lite",
+  "num_devices": 1,
+  "jax_version": "0.11.2",
+  "attention": "splash_mha",
+  "model": "WeatherNextCyclones_Mini",
+  "model_step_ms_median": 191.06048050161917,
+  "compile_s": 42.804442788001325,
+  "rollout_members": 32,
+  "rollout_steps": 30,
+  "rollout_total_s": 214.2706674809997,
+  "rollout_member_step_ms_median": 181.34861050020845,
+  "seconds_per_15day_member": 10.880916630012507,
+  "members_per_hour": 330.8544787550552,
+  "usd_per_1000_member_forecasts_at_1.20": 3.6269722100041686,
+  "note": "15-day figures extrapolated from 30-step rollout (longest sample file). Colab TPU v5e-1, run 2026-11-18 via colab ssh."
+}

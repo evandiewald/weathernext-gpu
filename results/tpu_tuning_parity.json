@@ -1,0 +1,127 @@
+{
+  "device": "TPU v5 lite",
+  "jax_version": "0.11.2",
+  "precision_drift_default_vs_highest": {
+    "cyclone_exists_gaussian_unit_mode": 0.17446018548502112,
+    "vertical_velocity": 0.09375341237155536,
+    "total_precipitation_6hr": 0.07197597309212878,
+    "cyclone_usa_rmw_disc": 0.053057218630258605,
+    "cyclone_usa_r34_ne_radius_disc": 0.03807305977024574,
+    "cyclone_usa_r34_sw_radius_disc": 0.036317640214062766,
+    "cyclone_usa_r64_ne_radius_disc": 0.03552494082905738,
+    "cyclone_usa_r34_nw_radius_disc": 0.03535361964113427,
+    "cyclone_usa_r64_sw_radius_disc": 0.034761518647489,
+    "cyclone_usa_r64_se_radius_disc": 0.03453529400445927,
+    "cyclone_usa_r64_nw_radius_disc": 0.03367850193414796,
+    "cyclone_usa_r34_se_radius_disc": 0.03326465808200352,
+    "cyclone_usa_r50_ne_radius_disc": 0.03281321897824251,
+    "cyclone_all_wind_disc": 0.031646219007179406,
+    "cyclone_usa_wind_disc": 0.03004657368428033,
+    "cyclone_usa_r50_se_radius_disc": 0.029275018751439896,
+    "cyclone_usa_r50_nw_radius_disc": 0.028758257935731127,
+    "cyclone_usa_r50_sw_radius_disc": 0.02872592247403111,
+    "cyclone_usa_pres_disc": 0.026667729613514008,
+    "10m_v_component_of_wind": 0.022092616913141634,
+    "10m_u_component_of_wind": 0.018487373725033923,
+    "v_component_of_wind": 0.01672215973337498,
+    "specific_humidity": 0.012807958605226193,
+    "u_component_of_wind": 0.010296006263656239,
+    "mean_sea_level_pressure": 0.0036410079886167656,
+    "2m_temperature": 0.0029677959280972757,
+    "temperature": 0.001871993823274862,
+    "sea_surface_temperature": 0.000628841003769021,
+    "geopotential": 6.990459665910328e-05
+  },
+  "splash_sweep": [
+    {
+      "blocks": [
+        128,
+        128,
+        128
+      ],
+      "step_ms": 186.72202050038322,
+      "compile_s": 40.99788622199776
+    },
+    {
+      "blocks": [
+        256,
+        256,
+        256
+      ],
+      "step_ms": 85.51514500140911,
+      "compile_s": 36.713578353999765
+    },
+    {
+      "blocks": [
+        256,
+        256,
+        128
+      ],
+      "step_ms": 85.94443050242262,
+      "compile_s": 36.76782635100244
+    },
+    {
+      "blocks": [
+        256,
+        512,
+        256
+      ],
+      "step_ms": 68.95706149953185,
+      "compile_s": 35.51802699600012
+    },
+    {
+      "blocks": [
+        512,
+        512,
+        512
+      ],
+      "step_ms": 63.141706499664,
+      "compile_s": 34.74829354599933
+    },
+    {
+      "blocks": [
+        512,
+        512,
+        256
+      ],
+      "step_ms": 63.40737699792953,
+      "compile_s": 35.142977715997404
+    },
+    {
+      "blocks": [
+        128,
+        512,
+        128
+      ],
+      "step_ms": 89.59186500032956,
+      "compile_s": 35.09359955800028
+    },
+    {
+      "blocks": [
+        512,
+        1024,
+        512
+      ],
+      "step_ms": 59.456598000906524,
+      "compile_s": 34.606540212000255
+    },
+    {
+      "blocks": [
+        1024,
+        1024,
+        512
+      ],
+      "step_ms": 61.03571699895838,
+      "compile_s": 36.01492162000068
+    }
+  ],
+  "best": {
+    "blocks": [
+      512,
+      1024,
+      512
+    ],
+    "step_ms": 59.456598000906524,
+    "compile_s": 34.606540212000255
+  }
+}
